@@ -2,6 +2,7 @@ import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from flask_restful import Resource, Api
+import webbrowser
 
 app = Flask(__name__)
 api = Api(app)
@@ -52,6 +53,7 @@ with app.app_context():
             def get(self):
                 return myobj
         api.add_resource(getFoodInfo, '/food')
+        webbrowser.open('http://localhost:5000/food')
 
     if __name__ == "__main__":
-        app.run()
+        app.run(host= '0.0.0.0')
