@@ -7,9 +7,11 @@ import webbrowser
 
 app = Flask(__name__)
 api = Api(app)
+DATABASE = 'spider.sqlite'
 with app.app_context():
-
-    DATABASE = 'spider.sqlite'
+    @app.route('/')
+    def Home():
+        return render_template('home.html')
 
     def get_db():
         db = getattr(g, '_database', None)
@@ -62,4 +64,4 @@ with app.app_context():
     #webbrowser.open('http://localhost:5000/food')
 
     if __name__ == "__main__":
-        app.run(host= '0.0.0.0')
+        app.run(host= '0.0.0.0', debug=True)

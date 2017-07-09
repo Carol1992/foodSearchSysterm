@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HOME</title>
+</head>
+<body>
+<div class="main">
+    <div class="top">
+        <p>HELLO WORLD</p>
+    </div>
+    <div class="bottom" id="food">
+    	<ul v-for="record in records">
+    		<li>{% raw %}{{record.code}}{% endraw %}</li>
+    		<li>{% raw %}{{record.name}}{% endraw %}</li>
+    		<li>{% raw %}{{record.url}}{% endraw %}</li>
+    	</ul>
+    </div>
+</div>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/bower_components/vue/dist/vue.js"></script>
+<script>
+	//Vue.config.delimiters = ["${", "}"];
+	var vm = new Vue({
+		el: '#food',
+		data: {
+		    records: []
+		}
+	});
+    $.ajax({
+    	url: 'http://localhost:5000/name/'+"milk",
+    	success: function(r){
+    		if(r.item.length > 0){
+    			for (var i=0; i<r.item.length; i++){
+    				var record = {
+    					code:r.item[i].code,
+    					name:r.item[i].name,
+    					url:r.item[i].url
+    				}
+    				vm.records.push(record)
+    			}
+    		}
+    	}
+    })
+</script>
+</body>
+</html>
